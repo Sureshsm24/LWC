@@ -1,0 +1,23 @@
+<template>
+    <div style="padding:20px; background-color:chocolate;" >
+      <lightning-input label="Location" class="L1"></lightning-input>
+      <div style="text-align:right">
+         <lightning-button label ="Search By Location" icon-name="utility.search"
+         onclick={search}></lightning-button>
+      </div>
+    </div>
+</template>
+
+
+import { LightningElement } from 'lwc';
+
+export default class LocationSearch extends LightningElement {
+    
+    search()
+    {
+       var locName = this.template.querySelector(".L1").value;
+
+       var ev =  new CustomEvent("searched",{"detail":locName});
+       this.dispatchEvent(ev);
+    }
+}

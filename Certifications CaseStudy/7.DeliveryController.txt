@@ -1,0 +1,35 @@
+public with sharing class DeliveryController {
+    @AuraEnabled
+    public static List<Course_Delivery__c> showLatestDeliveries(){
+        try {
+            List<Course_Delivery__c> cdList=[select Name,
+                                                    Region__c,
+                                                    Location__c,
+                                                    Status__c,
+                                                    Start_Date__c,
+                                                    Course__r.Name,
+                                                    Instructor__r.Name
+                                                    from Course_Delivery__c
+                                                    order by CreatedDate desc];
+               return cdList;                                     
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static List<Course_Delivery__c> showByLocation(String locName){
+        try {
+            string locPattern ='%'+locName+'%';
+            List<Course_Delivery__c> cdList = [select Name,
+                                                      Location__c,
+                                                      Start_Date__c,
+                                                      Status__c
+                                                      from Course_Delivery__c
+                                                      where Location__c LIKE:locPattern];
+            return cdList;                                           
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,33 @@
+<template>
+   <div class = "divbody">
+       This is the container component built for testing other components in LWC through page
+       <br/>
+       <br/>
+       <c-tourist-activities></c-tourist-activities><br/>
+   </div> 
+</template>
+
+
+#CSS
+
+.divbody
+{
+    background-color: aqua;
+    height: 100vh;
+    padding: 20px;
+    border: 10px solid red;
+    border-radius: 30px;
+    box-shadow: 3px 3px grey;
+    font-weight: bold;
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightning__AppPage</target>
+    </targets>
+</LightningComponentBundle>

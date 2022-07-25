@@ -1,0 +1,30 @@
+<template>
+    <div style="padding:20px; background-color:yellow;" >
+       
+        <c-location-search onsearched={showData}></c-location-search>
+        <br/>
+        <br/>
+        <lightning-datatable data={deList} columns={deFields}
+        key-field="id" hide-checkbox-column="true"></lightning-datatable>
+    </div>
+</template>
+
+
+import { LightningElement } from 'lwc';
+import showLoc from '@salesforce/apex/DeliveryController.showByLocation';
+export default class LocationDisplay extends LightningElement {
+
+    deList=[];
+    deFields=[
+         {"fieldName":"Name","label":"Delivery No","type":"text"},
+         {"fieldName":"Location__c","label":"Location","type":"text"},
+         {"fieldName":"Start_Date__c","label":"Start Date","type":"date"},
+         {"fieldName":"Status__c","label":"Status","type":"text"}
+    ];
+
+    showData(event)
+    {
+        var lName = event.detail;
+        showLoc({"locName": lName}).then(result => {this.deList=result});
+    }
+}

@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Rate Services" icon-name="standard:account">
+        <div style="height:30vh; padding:30px; text-align:center" class="D1">
+          <lightning-button-group>
+              <lightning-button label="Excellent" onclick={rate}></lightning-button>
+              <lightning-button label="Average" onclick={rate}></lightning-button>
+              <lightning-button label="Poor" onclick={rate}></lightning-button>
+          </lightning-button-group>
+        </div>
+    </lightning-card>
+</template>
+
+
+
+import { LightningElement } from 'lwc';
+
+export default class TouristRating extends LightningElement {
+
+    rate(event)
+    {
+        var blabel = event.target.label;//this will get label of button firing the click event
+        switch(blabel)
+        {
+            case "Excellent":
+                this.template.querySelector(".D1").style.background="Green";
+                break;
+            case "Average":    
+                 this.template.querySelector(".D1").style.background="Orange";
+                 break;
+            default:
+                this.template.querySelector(".D1").style.background="Red";
+                break;
+        }
+    }
+}

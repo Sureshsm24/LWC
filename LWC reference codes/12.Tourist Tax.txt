@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Tourist Tax Collection" icon-name="standard:contact">
+        <div style="padding:20px; background-color:crimson">
+           <lightning-input label="Tourist Name" class="T1"></lightning-input>
+           <lightning-input label="Amount" type="number" formatter="currency" class="A1"></lightning-input>
+           <lightning-combobox label="Activity type" class="AC1" options={actOptions}
+           onchange={calcTax}></lightning-combobox>
+           <br/>
+           <span style="font-size:30px">
+               {ttax}
+           </span>
+        </div>
+    </lightning-card>
+</template>
+
+
+import { LightningElement } from 'lwc';
+
+export default class TouristTax extends LightningElement {
+    
+    ttax=0;
+
+    actOptions=[
+        {"label":"Trekking","value":"1"},
+        {"label":"Skeing","value":"2"},
+        {"label":"Boating","value":"3"},
+        {"label":"Climbing","value":"4"}
+    ];
+
+    calcTax()
+    {
+
+        var tname = this.template.querySelector(".T1").value;
+        var amt = parseInt(this.template.querySelector(".A1").value);
+        var opt = this.template.querySelector(".AC1").value;
+        switch(opt)
+        {
+            case "1":
+                this.ttax = amt*0.15;
+                break;
+            case "2":
+                this.ttax = amt*0.2;
+                break;
+            case "3":
+                this.ttax = amt*0.25;
+                break;   
+            default:
+                this.ttax = amt*0.3;
+                break;    
+        }
+    }
+}

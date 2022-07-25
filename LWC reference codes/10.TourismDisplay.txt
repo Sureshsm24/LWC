@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Display Banner for Tourism" icon-name="standard:account">
+        <div style="height:50vh; background-color:burlywood; font-size:40px;"
+        class="slds-align_absolute-center">
+                  
+            Welcome to India Tourism for Earth Day Celebration  
+
+        </div>
+    </lightning-card>
+</template>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__Tab</target>
+    </targets>
+</LightningComponentBundle>

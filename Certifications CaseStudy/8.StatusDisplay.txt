@@ -1,0 +1,48 @@
+<template>
+    <lightning-card title="Course Deliveries">
+       <lightning-button label="Subscribe for Data" 
+       onclick={showData} slot="actions"></lightning-button>
+       <div style="padding:20px; height:40vh; background-color:yellow;">
+         <template for:each={cdList} for:item="cd">
+            <div key={cd.Id} style="padding:20px; display:inline-block;">
+               <lightning-tile>
+                  <span>
+                       <a data-rid={cd.Id} onclick={showRec}>{cd.Name}</a>
+                  </span>
+                  <br/>
+                  <strong>{cd.Status__c}</strong>
+               </lightning-tile>
+            </div>
+         </template>
+       </div>
+    </lightning-card>
+</template>
+]
+
+import { LightningElement,wire } from 'lwc';
+import mChannel from '@salesforce/messageChannel/DataChannel__c';
+import { subscribe,MessageContext } from 'lightning/messageService';
+import {NavigationMixin} from 'lightning/navigation';
+import showStat from '@salesforce/apex/DeliveryController.showDeliveryByStatus';
+export default class StatusDisplay extends NavigationMixin(LightningElement) {
+
+    @wire(MessageContext) msgCon;
+    cdStatus = "";
+
+    cdList=[];
+
+    showData()
+    {
+        subscribe(this.msgCon,mChannel,(msg => {this.cdStatus=msg.info}));
+
+        showStat({"stName":this.cdStatus}).then(result => {this.cdList=result});
+    }
+
+    showRec(event)
+    {
+        var recsfid = event.currentTarget.dataset.rid;
+
+        var pg = {type:"standard__recordPage",attributes:{recordId:recsfid,actionName:"view"}};
+        this[NavigationMixin.Navigate](pg);
+    }
+}

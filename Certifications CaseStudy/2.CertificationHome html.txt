@@ -1,0 +1,86 @@
+<template>
+  <c-login-form></c-login-form>
+    <template if:true={desktopApp}>
+    <lightning-card title="Certification Home" icon-name="standard:account">
+      <lightning-button-menu slot="actions" icon-name="utility:threedots"
+      tooltip="options menu"
+      menu-alignment="right" >
+          <lightning-menu-subheader label="Actions"></lightning-menu-subheader>
+          <lightning-menu-item label="Certifications" value="1" onclick={showCertData}></lightning-menu-item>
+          <lightning-menu-item label="Courses" value="2" onclick={showCourses}></lightning-menu-item>
+          <lightning-menu-subheader label="Course Deliveries"></lightning-menu-subheader>
+          <lightning-menu-item label="New" value="3" onclick={showNewDel}></lightning-menu-item>
+          <lightning-menu-item label="Show All Deliveries" value="7" onclick={showDel}></lightning-menu-item>
+          <lightning-menu-item label="Search" value="4" onclick={showSearch}></lightning-menu-item>
+          <lightning-menu-item label="Display" value="5" onclick={showStatus}></lightning-menu-item>
+          <lightning-menu-divider></lightning-menu-divider>
+          <lightning-menu-item label="Clear" value="6" onclick={clearData}></lightning-menu-item>
+        </lightning-button-menu>
+        <div class="desktopstyle">
+            <template if:true={dispWelcome}>
+             <c-welcome></c-welcome>
+            </template>
+             <template if:true={certShow}>
+                 <c-certification-data></c-certification-data>
+             </template>
+             <template if:true={courseShow}>
+              <c-course-data></c-course-data>
+             </template>
+             <template if:true={newDelShow}>
+              <c-insert-delivery></c-insert-delivery>
+             </template>
+             <template if:true={delShow}>
+              <c-delivery-data></c-delivery-data>
+             </template>
+             <template if:true={searchShow}>
+              <c-location-display></c-location-display>
+             </template>
+             <template if:true={statusShow}>
+              <c-status-container></c-status-container>
+             </template>
+            </div> 
+    </lightning-card>
+   </template>
+
+   <template if:true={phoneApp}>
+    <lightning-card title="Certification Home" icon-name="standard:account">
+      <lightning-button-menu slot="actions" icon-name="utility:threedots"
+      tooltip="options menu"
+      menu-alignment="right" >
+          <lightning-menu-subheader label="Actions"></lightning-menu-subheader>
+          <lightning-menu-item label="Certifications" value="1" onclick={showCertData}></lightning-menu-item>
+          <lightning-menu-item label="Courses" value="2" onclick={showCourses}></lightning-menu-item>
+          <lightning-menu-subheader label="Course Deliveries"></lightning-menu-subheader>
+          <lightning-menu-item label="New" value="3" onclick={showNewDel}></lightning-menu-item>
+          <lightning-menu-item label="Show All Deliveries" value="7" onclick={showDel}></lightning-menu-item>
+          <lightning-menu-item label="Search" value="4" onclick={showSearch}></lightning-menu-item>
+          <lightning-menu-item label="Display" value="5" onclick={showStatus}></lightning-menu-item>
+          <lightning-menu-divider></lightning-menu-divider>
+          <lightning-menu-item label="Clear" value="6" onclick={clearData}></lightning-menu-item>
+        </lightning-button-menu>
+        <div class="mobilestyle">
+            <template if:true={dispWelcome}>
+             <c-welcome></c-welcome>
+            </template>
+             <template if:true={certShow}>
+                 <c-certification-data></c-certification-data>
+             </template>
+             <template if:true={courseShow}>
+              <c-course-data></c-course-data>
+             </template>
+             <template if:true={newDelShow}>
+              <c-insert-delivery></c-insert-delivery>
+             </template>
+             <template if:true={delShow}>
+              <c-delivery-data></c-delivery-data>
+             </template>
+             <template if:true={searchShow}>
+              <c-location-display></c-location-display>
+             </template>
+             <template if:true={statusShow}>
+              <c-status-container></c-status-container>
+             </template>
+            </div> 
+    </lightning-card>
+   </template>
+</template>

@@ -1,0 +1,64 @@
+<template>
+    <lightning-card title="All Courses" icon-name="standard:account">
+        <lightning-button label="New Course" icon-name="utility:add"
+        variant="brand" onclick={newCourse} slot="actions"></lightning-button>
+        <lightning-button-icon icon-name="utility:refresh"
+        onclick={reload} slot="actions"></lightning-button-icon>
+        <lightning-datatable data={courseList} columns={courseFieldList}
+          key-field="id" hide-checkbox-column="true"
+          onrowaction={editRecord}></lightning-datatable>
+    </lightning-card>
+</template>
+
+
+import { LightningElement } from 'lwc';
+import {NavigationMixin} from 'lightning/navigation';
+import show from '@salesforce/apex/CourseController.showAllCourses';
+
+export default class CourseData extends NavigationMixin(LightningElement) {
+
+    courseList=[];
+    courseFieldList=[];
+
+    connectedCallback()
+    {
+        show().then(result => {
+            for(var i=0;i<result.length;i++)
+            {
+                result[i].recUrl="/"+result[i].Id;
+            }
+           this.courseFieldList = [
+                {"fieldName":"recUrl","label":"Name","type":"url","typeAttributes":{"label":{"fieldName":"Name"},"target":"_self"}},
+                {"fieldName":"Course_Description__c","label":"Description","type":"text"},
+                {"fieldName":"Status__c","label":"Status","type":"text"},
+                {"fieldName":"Duration__c","label":"Duration","type":"number"}
+                
+            ];
+            
+            this.courseList =result});
+    }
+
+    newCourse()
+    {
+        var pg = {type:"standard__objectPage",
+        attributes:{objectApiName:"Course__c",
+        actionName:"new"}};
+
+         this[NavigationMixin.Navigate](pg);
+    }
+
+    editRecord(event)
+    {
+        var recId = event.detail.row.Id;
+        var pg = {type:"standard__recordPage",
+        attributes:{recordId:recId,
+        actionName:"edit"}};
+
+        this[NavigationMixin.Navigate](pg);
+    }
+
+    reload()
+    {
+        window.location.reload();
+    }
+}

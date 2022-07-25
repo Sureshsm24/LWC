@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Information of Accounts">
+         <lightning-button label="Display All" variant="brand" icon-name="utility:list"
+           slot="actions" onclick={show}></lightning-button>
+
+           <div style = "padding:20px; background-color: crimson;">
+               <template for:each={accountList} for:item="acc">
+                  <ol key={acc.Id}>
+                       <li>{acc.Name}</li>
+                  </ol>
+               </template>
+           </div>
+    </lightning-card>
+
+</template>
+
+
+import { LightningElement } from 'lwc';
+import showacc from '@salesforce/apex/AccountController.showAccounts';
+export default class AccountData extends LightningElement 
+{
+     accountList=[];
+
+     show()
+     {
+         showacc().then(result=>{this.accountList=result});
+     }
+}

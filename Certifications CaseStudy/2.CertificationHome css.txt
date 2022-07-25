@@ -1,0 +1,21 @@
+.desktopstyle
+{
+    height:70vh;
+    background-color: chartreuse;
+    padding:20px;
+    overflow-x:scroll;
+    overflow-y:scroll;
+    font-family:'Courier New', Courier, monospace;
+    font-weight:bold;
+}
+
+.mobilestyle
+{
+    height:100vh;
+    background-color:coral;
+    padding:20px;
+    overflow-x:scroll;
+    overflow-y:scroll;
+    font-family:'Courier New', Courier, monospace;
+    font-weight:bold;
+}

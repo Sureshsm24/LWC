@@ -1,0 +1,56 @@
+<template>
+    <div>
+        <template if:true={showForm}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container"> 
+                <div class="slds-modal__header" style="background-color:red; font-size:30px;">
+                     User Login
+                </div>
+                <div class="slds-modal__content" style="padding:30px">
+                  <lightning-input label="PIN" type="text" required="true"
+                  message-when-value-missing="Please Enter PIN"
+                  pattern="[0-9]*" message-when-pattern-mismatch="PIN should me numbers"
+                  onchange={validate} class="P1">
+                  </lightning-input>
+                  <div class="slds-modal__footer">
+                    <lightning-button label="Login" variant="brand" onclick={login} class="B1" disabled="true"></lightning-button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    </div>
+</template>
+
+
+
+import { LightningElement } from 'lwc';
+import {ShowToastEvent} from 'lightning/platformShowToastEvent';
+export default class LoginForm extends LightningElement {
+
+    showForm=true;
+
+    login()
+    {
+        var pno = this.template.querySelector(".P1").value;
+        if(pno=="1234")
+        {
+            this.showForm=false;
+        }
+        else
+        {
+            var ev = new ShowToastEvent({title:"Error Alert",
+            message:"Invalid PIN.. Please Retry",variant:"error"});
+        }
+        this.dispatchEvent(ev);
+    }
+
+    validate(event)
+    {
+        if(event.target.validity.valid)
+           this.template.querySelector(".B1").disabled=false;
+        else
+           this.template.querySelector(".B1").disabled=true;
+    }
+}

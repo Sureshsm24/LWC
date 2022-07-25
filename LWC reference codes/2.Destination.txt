@@ -1,0 +1,45 @@
+<template>
+    <div style="background-color:wheat; padding:20px">
+        <strong>
+            Destination Name is : {destname} <br/>
+            Destination Type is : {desttype} <br/>
+            Destination Place is : {destloc} <br/>
+            Cost per night stay is : {destcost}
+            <template if:true={lowcost}>
+                    <div style= "background-color:greenyellow; padding:10px "> 
+                        Low Cost Destination
+                    </div>
+            </template>
+            <template if:true={highcost}>
+                <div style= "background-color:tomato; padding:10px "> 
+                    High Cost Destination
+                </div>
+        </template>
+        </strong>
+
+    </div>
+    
+</template>
+
+
+
+
+import { LightningElement,api } from 'lwc';
+
+export default class Destination extends LightningElement {
+
+    @api destname="Manali";
+    @api desttype="Hill Station";
+    @api destloc="Himachal Pradesh";
+    @api destcost=2000;
+
+    get lowcost()
+    {
+        return this.destcost < 3000;
+    }
+
+    get highcost()
+    {
+        return this.destcost >= 3000;
+    }
+}

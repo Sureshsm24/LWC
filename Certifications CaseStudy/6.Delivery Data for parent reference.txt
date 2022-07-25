@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="Latest Course Deliveries" icon-name="standard:account"> 
+         <lightning-datatable data={cdList} columns={cdFields}
+         key-field="id" hide-checkbox-column="true"></lightning-datatable>
+    </lightning-card>
+</template>
+
+
+import { LightningElement } from 'lwc';
+import showDel from '@salesforce/apex/DeliveryController.showLatestDeliveries';
+export default class DeliveryData extends LightningElement {
+    cdList=[];
+    cdFields=[];
+
+    connectedCallback()
+    {
+        showDel().then(result => {
+            for(var i=0;i<result.length;i++)
+            {
+                if(result[i].Course__r)
+                  result[i].CourseName = result[i].Course__r.Name;
+
+                 if(result[i].Instructor__r) 
+                 result[i].Trainer = result[i].Instructor__r.Name;
+            }
+            this.cdFields=[
+                {"fieldName":"Name","label":"Delivery No","type":"text"},
+                {"fieldName":"Region__c","label":"Region","type":"text"},
+                {"fieldName":"Location__c","label":"Location","type":"text"},
+                {"fieldName":"Status__c","label":"Status","type":"text"},
+                {"fieldName":"Start_Date__c","label":"Start Date","type":"date"},
+                {"fieldName":"CourseName","label":"Course","type":"text"},
+                {"fieldName":"Trainer","label":"Instructor","type":"text"}
+            ];
+            this.cdList = result;
+        });
+    }
+}

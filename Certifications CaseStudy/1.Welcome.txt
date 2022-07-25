@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-align_absolute-center">
+       <img src={imgLogo} height="400" width="400">
+    </div>
+</template>
+
+import { LightningElement } from 'lwc';
+import lg from '@salesforce/resourceUrl/Logo';
+export default class Welcome extends LightningElement {
+    imgLogo = lg;
+}

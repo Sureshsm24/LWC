@@ -1,0 +1,57 @@
+import { LightningElement,api } from 'lwc';
+import oppRec from '@salesforce/apex/OpportunityController.showOppAccount';
+export default class OpportunityData extends LightningElement {
+   
+    @api
+    recordId;
+    oppRecList=[];
+
+    connectedCallback()
+    {
+        oppRec({"oppId":this.recordId}).then(result => {this.oppRecList = result});
+
+    }
+}
+
+
+
+<template>
+    <lightning-card title="Opportunity Account Details" icon-name="standard:account">
+        <div style = "padding:20px; background-color: white;">
+           <template for:each={oppRecList} for:item="opp">
+                <div key={opp.Id}>
+                   <div style="display:inline-block; padding-right:30px">
+                   <lightning-tile label="Account Name">
+                       {opp.Account.Name}
+                   </lightning-tile>
+                   </div> 
+                   <div style="display:inline-block;  padding-right:30px">
+                   <lightning-tile label="Account Type">
+                    {opp.Account.Type}
+                   </lightning-tile>
+                   </div> 
+                   <div style="display:inline-block;  padding-right:30px">
+                   <lightning-tile label="Revenue">
+                    {opp.Account.AnnualRevenue}
+                   </lightning-tile>
+                   </div> 
+                   <div style="display:inline-block;  padding-right:30px">
+                   <lightning-tile label="Billing City">
+                    {opp.Account.BillingCity}
+                   </lightning-tile>
+               </div> 
+            </div>   
+           </template>
+        </div>
+    </lightning-card>
+</template>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>

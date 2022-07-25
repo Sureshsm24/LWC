@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="New Course Delivery" icon-name="standard:contact">
+        <lightning-record-form object-api-name="Course_Delivery__c"
+        fields={fldList}
+        onsuccess={showMsg}>
+        </lightning-record-form>
+        <br/>
+        <strong>{msg}</strong>
+    </lightning-card>
+</template>
+
+
+import { LightningElement } from 'lwc';
+import dRegion from '@salesforce/schema/Course_Delivery__c.Region__c';
+import dLoc from '@salesforce/schema/Course_Delivery__c.Location__c';
+import sDate from '@salesforce/schema/Course_Delivery__c.Start_Date__c';
+import dStatus from '@salesforce/schema/Course_Delivery__c.Status__c';
+import cName from '@salesforce/schema/Course_Delivery__c.Course__c';
+import iName from '@salesforce/schema/Course_Delivery__c.Instructor__c';
+export default class InsertDelivery extends LightningElement {
+
+    fldList=[dRegion,dLoc,sDate,dStatus,cName,iName];
+    msg="";
+
+    showMsg()
+    {
+        this.msg="Course Delivery Record Inserted Successfully"
+    }
+}

@@ -1,0 +1,8 @@
+<template>
+    <div style="padding: 20px; border:10px ridge blue">
+      <c-status-search></c-status-search>
+      <br/>
+      <br/>
+      <c-status-display></c-status-display>
+    </div>
+</template>

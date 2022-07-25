@@ -1,0 +1,46 @@
+<template>
+    <lightning-card title="Tourist Activities in Location" icon-name="standard:announcement">
+    <div style = "background-color:white ; padding:20px">
+       <table class = "slds-table slds-table_bordered">
+           <thead>
+               <tr>
+                   <th>Activity name</th>
+                   <th>Activity no</th>
+                   <th>Activity cost</th>
+               </tr>
+           </thead>
+           <tbody>
+               <template for:each={actList} for:item="act">
+                   <tr key={act.actno}>
+                      <td>{act.actno}</td>
+                      <td>{act.actname}</td>
+                      <td>{act.actcost}</td>
+                   </tr>
+
+               </template>
+           </tbody>
+       </table>
+    </div>
+ </lightning-card>
+</template>
+
+
+
+
+import { LightningElement } from 'lwc';
+
+export default class TouristActivities extends LightningElement {
+
+    actList= [
+        {"actno":"A001" , "actname": "Paragliding" , "actcost" : "3000"},
+        {"actno":"A001" , "actname": "Boating" , "actcost" : "1500"},
+        {"actno":"A001" , "actname": "Hiking" , "actcost" : "5000"},
+        {"actno":"A001" , "actname": "Trekking" , "actcost" : "10000"}
+    ];
+}
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+public with sharing class OpportunityController {
+    @AuraEnabled
+    public static List<Opportunity> showOppAccount(String oppId){
+        try {
+            
+            List<Opportunity> oppList =[select Account.name,Account.Type,Account.AnnualRevenue,
+            Account.BillingCity from Opportunity where ID =:oppId];
+            return oppList;
+
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+}

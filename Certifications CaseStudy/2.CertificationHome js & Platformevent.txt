@@ -1,0 +1,101 @@
+import { LightningElement } from 'lwc';
+import frmfac from '@salesforce/client/formFactor';
+import {ShowToastEvent} from 'lightning/platformShowToastEvent';
+export default class CertificationHome extends LightningElement {
+     
+    certShow=false;
+    courseShow=false;
+    newDelShow=false;
+    delShow=false;
+    searchShow=false;
+    statusShow=false;
+    dispWelcome=true;
+    get phoneApp()
+    {
+        return frmfac == "Small";
+    }
+
+    get desktopApp()
+    {
+        return frmfac == "Large" || frmfac == "Medium";
+    }
+
+    showCertData()
+    {
+            this.certShow= true;
+            this.dispWelcome=false;
+            this.courseShow=false;
+            this.newDelShow=false;
+            this.delShow=false;
+            this.searchShow=false;
+            this.statusShow=false;
+    }
+
+    showCourses()
+    {
+             this.courseShow=true;
+             this.certShow=false;
+             this.dispWelcome=false;
+             this.newDelShow=false;
+             this.delShow=false;
+             this.searchShow=false;
+             this.statusShow=false;
+    }
+    showNewDel()
+    {
+        this.newDelShow=true;
+        this.courseShow=false;
+        this.certShow=false;
+        this.dispWelcome=false;
+        this.delShow=false;
+        this.searchShow=false;
+        this.statusShow=false;
+    }
+    showDel()
+    {
+        this.delShow=true;
+        this.newDelShow=false;
+        this.courseShow=false;
+        this.certShow=false;
+        this.dispWelcome=false;
+        this.searchShow=false;
+        this.statusShow=false;
+    }
+
+    showSearch()
+    {
+        this.searchShow=true;
+        this.delShow=false;
+        this.newDelShow=false;
+        this.courseShow=false;
+        this.certShow=false;
+        this.dispWelcome=false;
+        this.statusShow=false;
+    }
+
+    showStatus()
+    {
+        this.statusShow=true;
+        this.searchShow=false;
+        this.delShow=false;
+        this.newDelShow=false;
+        this.courseShow=false;
+        this.certShow=false;
+        this.dispWelcome=false;
+    }
+
+    clearData()
+    {
+        this.statusShow=false;
+        this.searchShow=false;
+        this.delShow=false;
+        this.newDelShow=false;
+        this.courseShow=false;
+        this.certShow=false;
+        this.dispWelcome=true;
+        var ev = new ShowToastEvent({"title":"Alert",
+        "message":"You are re-directed to Certification Home Page",
+        "variant":"success"});
+        this.dispatchEvent(ev);
+    }
+}

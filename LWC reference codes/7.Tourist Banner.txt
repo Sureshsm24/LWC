@@ -1,0 +1,58 @@
+<template>
+    <lightning-card title="Welcome to India Tourism" icon-name="standard:account">
+        <div class="style1 D1" onmouseover={applystyle2} onmouseout={applystyle1}>
+            <strong> India ECO Tourism sponsered by Government</strong>
+        </div>
+    </lightning-card>
+</template>
+
+
+
+.style1
+{
+    height:30vh;
+    border:20px solid red;
+    border-radius: 40px;
+    background-color: coral;
+    padding: 20px;
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: red;
+    text-shadow: 2px 2px 2px white;
+}
+
+.style2
+{
+    height:30vh;
+    border:20px ridge red;
+    border-radius: 40px;
+    background-color: darkviolet;
+    padding: 20px;
+    font-size: 40px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: gold;
+    text-shadow: 2px 2px 2px white;
+}
+
+
+
+import { LightningElement } from 'lwc';
+
+export default class TouristBanner extends LightningElement
+{
+    applystyle2()
+    {
+        this.template.querySelector(".D1").classList.remove("style1");
+        this.template.querySelector(".D1").classList.add("style2");
+    }
+
+    applystyle1()
+    {
+        this.template.querySelector(".D1").classList.remove("style2");
+        this.template.querySelector(".D1").classList.add("style1");
+    }
+}
+
+

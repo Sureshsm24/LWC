@@ -1,0 +1,48 @@
+<template>
+   <div class = "divbody">
+       This is the container component built for testing other components in LWC through page
+       <br/>
+       <br/>
+       <c-tourist-form></c-tourist-form><br/>
+   </div> 
+</template>
+
+
+<template>
+    <lightning-card title="Tourist Information" icon name="standard:contact">
+      <div style="background-color:chartreuse; padding:20px">
+       <lightning-input label="Enter Name" type="text" onchange={loadname}></lightning-input>
+       <lightning-input label="Budget" type="number" formatter="currency" class="B1"></lightning-input>
+       <br/>
+       <lightning-button label="Submit Information" variant="brand" onclick={show}></lightning-button>
+       <br/>
+       <br/>
+       Tourist Name is : <strong> {tname} </strong>  
+       <br/>
+       Type of Customer Package : <strong>{tmessage}</strong>
+    </div>
+    </lightning-card>
+</template>
+
+
+
+import { LightningElement } from 'lwc';
+
+export default class TouristForm extends LightningElement {
+    tname="";
+    tbudget=0;
+    tmessage="";
+    
+    loadname(event)
+    {
+        this.tname = event.target.value;
+    }
+    show()
+    {
+        this.tbudget = this.template.querySelector(".B1").value;
+        if(this.tbudget>10000)
+             this.tmessage = "Premium Customer";
+             else
+              this.tmessage = "Economy Customer";
+    }
+}

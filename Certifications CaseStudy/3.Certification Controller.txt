@@ -1,0 +1,14 @@
+public with sharing class CertificationController {
+   @AuraEnabled
+   public static List<Certification__c> showCertifications(){
+       try {
+           List<Certification__c> cList = [select Name,Certification_Description__c, Status__c
+           from Certification__c
+           order by Name
+           Limit :(Limits.getLimitQueryRows()-Limits.getQueryRows())];
+           return cList;
+       } catch (Exception e) {
+           throw new AuraHandledException(e.getMessage());
+       }
+   }
+}

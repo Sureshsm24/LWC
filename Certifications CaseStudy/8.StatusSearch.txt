@@ -1,0 +1,28 @@
+<template>
+    <div style="padding:20px; background-color:tomato;"
+    class="slds-align_absolute-center">
+
+         <lightning-button label="Scheduled" onclick={send}></lightning-button>
+         <lightning-button label="Delivered" onclick={send}></lightning-button>
+         <lightning-button label="Cancelled" onclick={send}></lightning-button>
+    
+    </div>
+</template>
+
+
+import { LightningElement,wire } from 'lwc';
+import mChannel from '@salesforce/messageChannel/DataChannel__c';
+import{publish,MessageContext} from 'lightning/messageService';
+export default class StatusSearch extends LightningElement {
+
+    @wire(MessageContext) mCon;
+
+    send(event)
+    {
+        var statVal = event.target.label;
+        const msg = {info:statVal};
+      
+        publish(this.mCon,mChannel,msg);
+
+    }
+}

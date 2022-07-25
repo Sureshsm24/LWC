@@ -1,0 +1,55 @@
+<template>
+    <lightning-card title="Information of Accounts">
+         <lightning-button label="Display All" variant="brand" icon-name="utility:list"
+           slot="actions" onclick={show}></lightning-button>
+
+           <div style = "padding:20px; background-color: crimson;">
+               <template if:true={gotdata}>
+                 <lightning-spinner size="large"></lightning-spinner>
+               </template>
+
+               <lightning-input label="Company Revenue" type="number" formatter="currency" 
+               class="R1"></lightning-input>
+               
+               <lightning-datatable data={accountList} columns={accfields} key-field="ïd"
+               hide-checkbox-column="true"></lightning-datatable>
+           </div>
+    </lightning-card>
+
+</template>
+
+
+
+import { LightningElement } from 'lwc';
+import showacc from '@salesforce/apex/AccountController.showAccounts';
+import showaccrev from '@salesforce/apex/AccountController.showAccountsByRevenue';
+export default class AccountData extends LightningElement 
+{
+     gotdata=false;
+     accountList=[];
+     accountrev=0;
+     accfields=[
+         {"label":"Account Name", "fieldName":"Name" ,"type":"text"},
+         {"label":"Account Type", "fieldName":"Type" ,"type":"text"},
+         {"label":"Revenue", "fieldName":"AnnualRevenue" ,"type":"currency"}
+     ];
+     
+     connectedCallback()
+     {
+        this.gotdata=true;
+        showacc().then(result=>{this.accountList=result;
+        this.gotdata=false;});
+     }
+
+     show()
+     {
+         
+         this.accountrev = this.template.querySelector(".R1").value;
+         showaccrev({"accrev":this.accountrev}).then(result=>{this.accountList=result;
+         this.gotdata=false;
+        });
+     }
+}
+
+
+

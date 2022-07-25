@@ -1,0 +1,13 @@
+public with sharing class CourseController {
+    
+    @AuraEnabled
+    public static List<Course__c> showAllCourses(){
+        try {
+            List<Course__c> cList= [select Name,Course_Description__c,Status__c,Duration__c
+            from Course__c order by Name];
+            return cList;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,19 @@
+public with sharing class DeliveryController {
+    @AuraEnabled
+    public static List<Course_Delivery__c> showLatestDeliveries(){
+        try {
+            List<Course_Delivery__c> cdList=[select Name,
+                                                    Region__c,
+                                                    Location__c,
+                                                    Status__c,
+                                                    Start_Date__c,
+                                                    Course__r.Name,
+                                                    Instructor__r.Name
+                                                    from Course_Delivery__c
+                                                    order by CreatedDate desc];
+               return cdList;                                     
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+}

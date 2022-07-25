@@ -1,0 +1,35 @@
+<template>
+    <lightning-card icon-name="standard:contact">
+        <span slot="title">
+            <span style="font-size:30px;">Tourist Info</span><br/>
+            <span style="font-size:10px">Information Related to Tourist</span>
+        </span>
+        <lightning-button label={btnbanner} variant={btnstyle} onclick={show} slot="actions"></lightning-button>
+        <div style="background-color:burlywood; padding:20px">
+         <strong>{infomsg}</strong>
+        </div>
+    </lightning-card>
+</template>
+
+
+import { LightningElement } from 'lwc';
+
+export default class TouristInformation extends LightningElement {
+    infomsg = "";
+    btnbanner = "Show Information";
+    btnstyle = "brand";
+    show()
+    {
+        if(this.btnstyle=="brand"){
+            this.infomsg= "Welcome to Tourist Information Page";
+            this.btnbanner= "Clear";
+            this.btnstyle= "destructive";
+        }
+        else{
+            this.infomsg="";
+            this.btnbanner="Show Information";
+            this.btnstyle="brand";
+        }
+        
+    }
+}

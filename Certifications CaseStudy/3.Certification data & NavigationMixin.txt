@@ -1,0 +1,68 @@
+<template>
+    <lightning-card title="Äll Certifications">
+        <lightning-button label="New Certification" icon-name="utility:add"
+        variant="brand" onclick={newCert} slot="actions"></lightning-button>
+        <lightning-button-icon icon-name="utility:refresh" 
+        onclick={reload} slot="actions"></lightning-button-icon>
+        <lightning-datatable data={certList} columns={certFields}
+        key-field="id" hide-checkbox-column="true"
+        onrowaction={editRecord}></lightning-datatable>
+    </lightning-card>
+</template>
+
+
+
+import { LightningElement } from 'lwc';
+import {NavigationMixin} from 'lightning/navigation';
+import showAll from '@salesforce/apex/CertificationController.showCertifications';
+
+export default class CertificationData extends NavigationMixin(LightningElement) {
+
+    certList = [];
+    certFields=[];
+
+    connectedCallback()
+    {
+        showAll().then(result =>{
+            for(var i=0;i<result.length;i++)
+            {
+                result[i].recUrl="/"+result[i].Id;
+            }
+            
+            this.certFields = [
+                {"label":"Name","fieldName":"recUrl","type":"url","typeAttributes":{"label":{"fieldName":"Name"},"target":"_self"}},
+                {"label":"Description","fieldName":"Certification_Description__c","type":"text"},
+                {"label":"Status","fieldName":"Status__c","type":"text"},
+                {"type":"action","typeAttributes":{"rowActions":[{"label":"edit","name":"edit"}]}}
+            ];
+            
+            this.certList = result});
+
+        
+    }
+
+    newCert()
+    {
+        var pg = {type:"standard__objectPage",
+        attributes:{objectApiName:"Certification__c",
+        actionName:"new"}};
+
+         this[NavigationMixin.Navigate](pg);
+    }
+
+    editRecord(event)
+    {
+        var recId = event.detail.row.Id;
+        var pg = {type:"standard__recordPage",
+        attributes:{recordId:recId,
+        actionName:"edit"}};
+
+        this[NavigationMixin.Navigate](pg);
+        
+    }
+
+    reload()
+    {
+        window.location.reload();
+    }
+}

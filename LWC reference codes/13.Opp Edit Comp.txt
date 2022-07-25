@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Opportunity Edit Page" icon-name="standard:opportunity">
+       <div style="height:60vh; padding:20px; background-color:darkcyan;"
+       class="slds-form_stacked">
+            <lightning-input label="Opportunity Name"></lightning-input>
+            <lightning-input label="Close Date" type="date"></lightning-input>
+            <lightning-input label="Opportunity Amount" type="number" formatter="currency"></lightning-input>
+            <div style="text-align:right">
+               <lightning-button label="Save Opportunity" variant="brand"></lightning-button>
+               <lightning-button label="Cancel" variant="destructive"></lightning-button>
+            </div>
+       </div>
+    </lightning-card>
+</template>
